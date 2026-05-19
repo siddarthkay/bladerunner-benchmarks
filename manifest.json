@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "destination": "generic/platform=iOS Simulator",
+  "configuration": "Debug",
+  "apps": {
+    "xcodebenchmark": {
+      "display_name": "XcodeBenchmark (anchor)",
+      "kind": "xcodebenchmark",
+      "repo": "https://github.com/devMEremenko/XcodeBenchmark",
+      "ref": "60d82d23e34fd63c4cae5d26d10cbdd88f0b0ee2",
+      "submodules": false,
+      "workspace": "XcodeBenchmark.xcworkspace",
+      "scheme": "XcodeBenchmark",
+      "destination": "generic/platform=iOS"
+    },
+    "wikipedia": {
+      "display_name": "Wikipedia iOS",
+      "kind": "ios-native",
+      "repo": "https://github.com/wikimedia/wikipedia-ios",
+      "ref": "22f4e986c51db3629b175b299d0affbdb7648536",
+      "submodules": false,
+      "project": "Wikipedia.xcodeproj",
+      "scheme": "Wikipedia"
+    },
+    "duckduckgo": {
+      "display_name": "DuckDuckGo iOS",
+      "kind": "ios-native",
+      "repo": "https://github.com/duckduckgo/iOS",
+      "ref": "40740302abbd758c80decc166ea37c324e5208c2",
+      "submodules": true,
+      "project": "DuckDuckGo-iOS.xcodeproj",
+      "scheme": "iOS Browser"
+    },
+    "rn-tester": {
+      "display_name": "React Native (RN Tester)",
+      "kind": "react-native",
+      "repo": "https://github.com/facebook/react-native",
+      "ref": "22ea81b5e37b0cf23be1d8fb32bb7f55e1fcf3d8",
+      "submodules": false,
+      "workspace": "packages/rn-tester/RNTesterPods.xcworkspace",
+      "scheme": "RNTester"
+    },
+    "bluesky": {
+      "display_name": "Bluesky (social-app)",
+      "kind": "react-native-expo",
+      "repo": "https://github.com/bluesky-social/social-app",
+      "ref": "8e8dc7561f82dbd92c86d2f8c7a1366a8bb85eba",
+      "submodules": false,
+      "workspace": "ios/*.xcworkspace",
+      "scheme": "Bluesky"
+    },
+    "mattermost": {
+      "display_name": "Mattermost Mobile",
+      "kind": "react-native",
+      "repo": "https://github.com/mattermost/mattermost-mobile",
+      "ref": "ebf796a4da5f772bee157ab8223ab089f045ff58",
+      "submodules": false,
+      "workspace": "ios/Mattermost.xcworkspace",
+      "scheme": "Mattermost"
+    }
+  }
+}

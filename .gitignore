@@ -1,0 +1,13 @@
+# Benchmark work area (cloned upstream repos, derived data, logs)
+.work/
+.bench-out/
+incoming/
+*.log
+
+# Python
+__pycache__/
+*.pyc
+
+# OS / editor
+.DS_Store
+*.swp

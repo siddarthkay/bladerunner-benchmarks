@@ -1,0 +1,15 @@
+solidarity is a full-stack dev-env gate that demands an Android toolchain
+(ANDROID_HOME, emulator binary) and non-empty git user.email. 
+None of this matter for a cold iOS-only build. 
+
+--- a/package.json
++++ b/package.json
+@@ -208,7 +208,7 @@
+     "pod-install-m1": "cd ios && RCT_NEW_ARCH_ENABLED=0 arch -x86_64 pod install",
+     "postinstall": "patch-package && ./scripts/postinstall.sh",
+     "prepare": "husky",
+-    "preinstall": "./scripts/preinstall.sh && npx solidarity",
++    "preinstall": "./scripts/preinstall.sh",
+     "start": "react-native start --host 127.0.0.1",
+     "test": "NODE_OPTIONS=--max_old_space_size=12000 jest --runInBand",
+     "test:ci": "NODE_OPTIONS=--max_old_space_size=12000 jest --verbose=false --forceExit",

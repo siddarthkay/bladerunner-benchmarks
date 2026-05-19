@@ -1,0 +1,15 @@
+Xcode 26's UIApplication.open(_:) is async-only inside MainActor closures;
+add the missing `await` so the pinned ref still compiles against the toolchain
+on bladerunner (we're benchmarking infra throughput, not Swift evolution).
+
+--- a/DuckDuckGo/HomeMessageViewModel.swift
++++ b/DuckDuckGo/HomeMessageViewModel.swift
+@@ -145,7 +145,7 @@
+             return { @MainActor in
+                 let url = URL.appStore
+                 if UIApplication.shared.canOpenURL(url as URL) {
+-                    UIApplication.shared.open(url)
++                    await UIApplication.shared.open(url)
+                 }
+                 await onDidClose(buttonAction)
+             }

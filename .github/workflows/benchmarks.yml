@@ -1,0 +1,193 @@
+name: benchmarks
+
+on:
+  schedule:
+    # Nightly at 09:17 UTC (low-traffic hour).
+    - cron: "17 9 * * *"
+  workflow_dispatch:
+    inputs:
+      app:
+        description: "Which app to benchmark"
+        type: choice
+        default: all
+        options:
+          - all
+          - xcodebenchmark
+          - wikipedia
+          - duckduckgo
+          - rn-tester
+          - bluesky
+          - mattermost
+      ref:
+        description: "Optional git ref override (applies to the selected app(s))"
+        type: string
+        default: ""
+      profiles:
+        description: "Runner profiles to benchmark"
+        type: choice
+        default: both
+        options:
+          - both
+          - bladerunner
+          - github
+
+# Serialize whole runs: never let a nightly + manual run race on the results commit.
+concurrency:
+  group: benchmarks
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  prepare:
+    runs-on: [self-hosted, bladerunner-macos]
+    timeout-minutes: 10
+    outputs:
+      apps: ${{ steps.matrix.outputs.apps }}
+      run_bladerunner: ${{ steps.gate.outputs.run_bladerunner }}
+      run_github: ${{ steps.gate.outputs.run_github }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: matrix
+        env:
+          PICK: ${{ inputs.app || 'all' }}
+          PYTHONPATH: ${{ github.workspace }}/scripts
+        run: |
+          if [ "$PICK" = "all" ] || [ -z "$PICK" ]; then
+            APPS="$(python3 -m bench.manifest apps-json)"
+          else
+            APPS="[\"$PICK\"]"
+          fi
+          echo "apps=$APPS" >> "$GITHUB_OUTPUT"
+          echo "Matrix: $APPS"
+      - id: gate
+        env:
+          PROFILES: ${{ inputs.profiles || 'both' }}
+        run: |
+          case "$PROFILES" in
+            both)        echo "run_bladerunner=true"  >> "$GITHUB_OUTPUT"
+                         echo "run_github=true"       >> "$GITHUB_OUTPUT" ;;
+            bladerunner) echo "run_bladerunner=true"  >> "$GITHUB_OUTPUT"
+                         echo "run_github=false"      >> "$GITHUB_OUTPUT" ;;
+            github)      echo "run_bladerunner=false" >> "$GITHUB_OUTPUT"
+                         echo "run_github=true"       >> "$GITHUB_OUTPUT" ;;
+          esac
+
+  build-bladerunner:
+    needs: prepare
+    if: needs.prepare.outputs.run_bladerunner == 'true'
+    strategy:
+      fail-fast: false
+      # Run one app at a time on a single pool: parallel builds would contend
+      # for CPU/IO and make cold-build times non-comparable across apps.
+      max-parallel: 1
+      matrix:
+        app: ${{ fromJSON(needs.prepare.outputs.apps) }}
+    runs-on: [self-hosted, bladerunner-macos]
+    timeout-minutes: 120
+    # Node on the bladerunner pool is Nix-built and ships without the macOS
+    # system trust roots, so corepack/npm/pnpm/yarn fail TLS verification.
+    # NODE_EXTRA_CA_CERTS points Node at the standard CA bundle.
+    env:
+      NODE_EXTRA_CA_CERTS: "/etc/ssl/cert.pem"
+      RUNNER_PROFILE: bladerunner
+    steps:
+      - uses: actions/checkout@v4
+      - name: Benchmark ${{ matrix.app }}
+        env:
+          REF_OVERRIDE: ${{ inputs.ref }}
+        run: scripts/run-benchmark.sh "${{ matrix.app }}" "$REF_OVERRIDE"
+      - name: Upload result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bench-bladerunner-${{ matrix.app }}
+          path: results/bladerunner/${{ matrix.app }}/
+          if-no-files-found: warn
+          retention-days: 14
+
+  build-github:
+    needs: prepare
+    if: needs.prepare.outputs.run_github == 'true'
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        app: ${{ fromJSON(needs.prepare.outputs.apps) }}
+    # macos-26: arm64 Apple Silicon image with Xcode 26.4.1 default (matches
+    # bladerunner's Xcode). macos-latest still points at macOS 15 / Xcode 16
+    # as of May 2026, which lacks iOS 19 SDK symbols Wikipedia + Bluesky use.
+    runs-on: macos-26
+    timeout-minutes: 120
+    env:
+      RUNNER_PROFILE: github
+    steps:
+      - uses: actions/checkout@v4
+      - name: Benchmark ${{ matrix.app }}
+        env:
+          REF_OVERRIDE: ${{ inputs.ref }}
+        run: scripts/run-benchmark.sh "${{ matrix.app }}" "$REF_OVERRIDE"
+      - name: Upload result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bench-github-${{ matrix.app }}
+          path: results/github/${{ matrix.app }}/
+          if-no-files-found: warn
+          retention-days: 14
+
+  publish:
+    needs: [prepare, build-bladerunner, build-github]
+    if: always() && (needs.build-bladerunner.result != 'skipped' || needs.build-github.result != 'skipped')
+    runs-on: [self-hosted, bladerunner-macos]
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download all results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: bench-*
+          path: incoming
+      - name: Consolidate results
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          for d in incoming/bench-*; do
+            name="${d#incoming/bench-}"   # e.g. "bladerunner-rn-tester"
+            profile="${name%%-*}"          # "bladerunner"
+            app="${name#*-}"               # "rn-tester"
+            mkdir -p "results/$profile/$app"
+            for f in "$d"/*.json; do
+              cp "$f" "results/$profile/$app/"
+            done
+          done
+          ls -R results || true
+      - name: Regenerate leaderboard
+        env:
+          PYTHONPATH: ${{ github.workspace }}/scripts
+        run: python3 -m bench.leaderboard
+      - name: Commit results
+        run: |
+          set -euo pipefail
+          git config user.name  "bladerunner-bot"
+          git config user.email "bot@bladerunner.sh"
+          git add results README.md
+          if git diff --cached --quiet; then
+            echo "No result changes to commit."
+            exit 0
+          fi
+          git commit -m "benchmarks: results for run ${GITHUB_RUN_ID}"
+          for attempt in 1 2 3 4 5; do
+            if git pull --rebase --autostash origin "${GITHUB_REF_NAME}" \
+               && git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              echo "Pushed on attempt ${attempt}."
+              exit 0
+            fi
+            echo "Push attempt ${attempt} failed; retrying..."
+            sleep 5
+          done
+          echo "Failed to push results after retries." >&2
+          exit 1
