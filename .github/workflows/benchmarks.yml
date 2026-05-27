@@ -151,42 +151,58 @@ jobs:
         with:
           pattern: bench-*
           path: incoming
-      - name: Consolidate results
-        run: |
-          set -euo pipefail
-          shopt -s nullglob
-          for d in incoming/bench-*; do
-            name="${d#incoming/bench-}"   # e.g. "bladerunner-rn-tester"
-            profile="${name%%-*}"          # "bladerunner"
-            app="${name#*-}"               # "rn-tester"
-            mkdir -p "results/$profile/$app"
-            for f in "$d"/*.json; do
-              cp "$f" "results/$profile/$app/"
-            done
-          done
-          ls -R results || true
-      - name: Regenerate leaderboard
+      - name: Publish results
         env:
           PYTHONPATH: ${{ github.workspace }}/scripts
-        run: python3 -m bench.leaderboard
-      - name: Commit results
+          COMMIT_SUBJECT: "benchmarks: results for run ${{ github.run_id }}"
         run: |
           set -euo pipefail
           git config user.name  "bladerunner-bot"
           git config user.email "bot@bladerunner.sh"
-          git add results README.md
-          if git diff --cached --quiet; then
-            echo "No result changes to commit."
+
+          # Idempotency guard: if a prior attempt of this same run already
+          # published, the remote tip carries our commit subject. Skip so the
+          # re-run can't race with its own attempt-1 commit (see run 26506218041).
+          git fetch origin "${GITHUB_REF_NAME}"
+          if [ "$(git log -1 --format=%s "origin/${GITHUB_REF_NAME}")" = "${COMMIT_SUBJECT}" ]; then
+            echo "Results for run ${GITHUB_RUN_ID} already published; nothing to do."
             exit 0
           fi
-          git commit -m "benchmarks: results for run ${GITHUB_RUN_ID}"
+
           for attempt in 1 2 3 4 5; do
-            if git pull --rebase --autostash origin "${GITHUB_REF_NAME}" \
-               && git push origin "HEAD:${GITHUB_REF_NAME}"; then
+            # Each attempt rebases logically by resetting hard to the latest
+            # remote tip and re-applying the artifacts on top. README.md and
+            # results/metrics.prom are fully regenerated from the union of
+            # JSON files, so race losers produce a clean commit instead of
+            # fighting a rebase over generated files.
+            git fetch origin "${GITHUB_REF_NAME}"
+            git reset --hard "origin/${GITHUB_REF_NAME}"
+
+            shopt -s nullglob
+            for d in incoming/bench-*; do
+              name="${d#incoming/bench-}"   # e.g. "bladerunner-rn-tester"
+              profile="${name%%-*}"          # "bladerunner"
+              app="${name#*-}"               # "rn-tester"
+              mkdir -p "results/$profile/$app"
+              for f in "$d"/*.json; do
+                cp "$f" "results/$profile/$app/"
+              done
+            done
+
+            python3 -m bench.leaderboard
+
+            git add results README.md
+            if git diff --cached --quiet; then
+              echo "No result changes to commit."
+              exit 0
+            fi
+            git commit -m "${COMMIT_SUBJECT}"
+
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
               echo "Pushed on attempt ${attempt}."
               exit 0
             fi
-            echo "Push attempt ${attempt} failed; retrying..."
+            echo "Push attempt ${attempt} failed; will reset and rebuild..."
             sleep 5
           done
           echo "Failed to push results after retries." >&2
