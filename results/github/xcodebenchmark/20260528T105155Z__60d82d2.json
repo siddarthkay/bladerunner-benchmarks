@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "app": "xcodebenchmark",
+  "display_name": "XcodeBenchmark (anchor)",
+  "kind": "xcodebenchmark",
+  "status": "success",
+  "failed_phase": null,
+  "timestamp": "2026-05-28T10:51:55Z",
+  "repo": "https://github.com/devMEremenko/XcodeBenchmark",
+  "ref": "60d82d23e34fd63c4cae5d26d10cbdd88f0b0ee2",
+  "commit": "60d82d23e34fd63c4cae5d26d10cbdd88f0b0ee2",
+  "run_id": "26569742706",
+  "run_url": "https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/26569742706",
+  "runner": {
+    "label": "github",
+    "hostname": "sjc22-be109-a4bffa77-d9cf-4dfa-9f91-0b826fbaf435-46797FAE2ED6.local",
+    "os": "26.4",
+    "arch": "arm64",
+    "model": "Apple M1 (Virtual)",
+    "cpu_cores": 3,
+    "mem_gb": 7.5,
+    "xcode": "Xcode 26.4.1 Build version 17E202"
+  },
+  "tooling": {
+    "node": "v24.15.0",
+    "pnpm": "",
+    "yarn": "1.22.22",
+    "ruby": "ruby 3.4.9 (2026-03-11 revision 76cca827ab) +PRISM [arm64-darwin25]",
+    "cocoapods": "1.16.2"
+  },
+  "phases": [
+    {
+      "name": "clone",
+      "seconds": 13.1,
+      "status": "success"
+    },
+    {
+      "name": "build",
+      "seconds": 677.3,
+      "status": "success"
+    }
+  ],
+  "total_seconds": 690.4
+}
