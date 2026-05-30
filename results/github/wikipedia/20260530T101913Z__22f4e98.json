@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "app": "wikipedia",
+  "display_name": "Wikipedia iOS",
+  "kind": "ios-native",
+  "status": "success",
+  "failed_phase": null,
+  "timestamp": "2026-05-30T10:19:13Z",
+  "repo": "https://github.com/wikimedia/wikipedia-ios",
+  "ref": "22f4e986c51db3629b175b299d0affbdb7648536",
+  "commit": "22f4e986c51db3629b175b299d0affbdb7648536",
+  "run_id": "26680954455",
+  "run_url": "https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/26680954455",
+  "runner": {
+    "label": "github",
+    "hostname": "iad20-eo1212-ce81af30-98c8-4bdd-8007-c2207f6981a1-F6E5845EC230.local",
+    "os": "26.4",
+    "arch": "arm64",
+    "model": "Apple M1 (Virtual)",
+    "cpu_cores": 3,
+    "mem_gb": 7.5,
+    "xcode": "Xcode 26.4.1 Build version 17E202"
+  },
+  "tooling": {
+    "node": "v24.16.0",
+    "pnpm": "",
+    "yarn": "1.22.22",
+    "ruby": "ruby 3.4.9 (2026-03-11 revision 76cca827ab) +PRISM [arm64-darwin25]",
+    "cocoapods": "1.16.2"
+  },
+  "phases": [
+    {
+      "name": "clone",
+      "seconds": 14.4,
+      "status": "success"
+    },
+    {
+      "name": "deps",
+      "seconds": 41.0,
+      "status": "success"
+    },
+    {
+      "name": "build",
+      "seconds": 305.4,
+      "status": "success"
+    }
+  ],
+  "total_seconds": 360.8
+}
