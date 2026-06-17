@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "app": "rn-tester",
+  "display_name": "React Native (RN Tester)",
+  "kind": "react-native",
+  "status": "success",
+  "failed_phase": null,
+  "timestamp": "2026-06-17T11:46:11Z",
+  "repo": "https://github.com/facebook/react-native",
+  "ref": "22ea81b5e37b0cf23be1d8fb32bb7f55e1fcf3d8",
+  "commit": "22ea81b5e37b0cf23be1d8fb32bb7f55e1fcf3d8",
+  "run_id": "27684033186",
+  "run_url": "https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/27684033186",
+  "runner": {
+    "label": "github",
+    "hostname": "sjc20-bb660-8d249493-76f6-4afe-b465-c269ab9d4b0e-EE3DA29C0D16.local",
+    "os": "26.4",
+    "arch": "arm64",
+    "model": "Apple M1 (Virtual)",
+    "cpu_cores": 3,
+    "mem_gb": 7.5,
+    "xcode": "Xcode 26.5 Build version 17F42"
+  },
+  "tooling": {
+    "node": "v24.16.0",
+    "pnpm": "11.7.0",
+    "yarn": "1.22.22",
+    "ruby": "ruby 3.4.9 (2026-03-11 revision 76cca827ab) +PRISM [arm64-darwin25]",
+    "cocoapods": "1.16.2"
+  },
+  "phases": [
+    {
+      "name": "clone",
+      "seconds": 18.1,
+      "status": "success"
+    },
+    {
+      "name": "deps",
+      "seconds": 119.7,
+      "status": "success"
+    },
+    {
+      "name": "build",
+      "seconds": 972.2,
+      "status": "success"
+    }
+  ],
+  "total_seconds": 1110.0
+}
