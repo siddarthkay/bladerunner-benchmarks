@@ -15,34 +15,34 @@ Each run starts from a clean sandbox: fresh clone, fresh dependencies, fresh com
 
 | App | bladerunner | github | github ÷ bladerunner |
 |-----|------:|------:|------:|
-| XcodeBenchmark (anchor) | 1.9m | 11.9m | 6.3× |
-| Wikipedia iOS | 1.6m | 8.0m | 5.0× |
-| DuckDuckGo iOS | 2.0m | 9.4m | 4.7× |
-| React Native (RN Tester) | 2.8m | 25.3m | 9.1× |
-| Bluesky (social-app) | 3.9m | 29.4m | 7.5× |
-| Mattermost Mobile | 5.1m | 32.5m | 6.3× |
+| XcodeBenchmark (anchor) | 1.9m | 12.4m | 6.5× |
+| Wikipedia iOS | 1.6m | 7.3m | 4.7× |
+| DuckDuckGo iOS | 2.2m | 9.1m | 4.2× |
+| React Native (RN Tester) | 2.9m | 13.1m | 4.6× |
+| Bluesky (social-app) | 3.8m | 35.6m | 9.4× |
+| Mattermost Mobile | 5.9m | 25.7m | 4.4× |
 
 ### bladerunner - Mac Studio · Xcode 26.4.1
 
 | App | Status | Total | clone | deps | build | Δ vs prev | Built | Updated (UTC) |
 |-----|:------:|------:|------:|-----:|------:|-----------|-------|---------------|
-| XcodeBenchmark (anchor) | ✅ | 1.9m | 16s | - | 1.6m | ⚡ 5s | [`60d82d23e34fd63c4cae5d26d10cbdd88f0b0ee2` @ `60d82d2`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29011605148) | 2026-07-09 10:29:13 |
-| Wikipedia iOS | ✅ | 1.6m | 22s | 13s | 60s | ⚡ 6s | [`22f4e986c51db3629b175b299d0affbdb7648536` @ `22f4e98`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29011605148) | 2026-07-09 10:31:12 |
-| DuckDuckGo iOS | ✅ | 2.0m | 8s | 39s | 1.2m | ❗ 12s | [`40740302abbd758c80decc166ea37c324e5208c2` @ `4074030`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29011605148) | 2026-07-09 10:33:34 |
-| React Native (RN Tester) | ✅ | 2.8m | 24s | 46s | 1.6m | ⚡ 9s | [`22ea81b5e37b0cf23be1d8fb32bb7f55e1fcf3d8` @ `22ea81b`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29011605148) | 2026-07-09 10:36:49 |
-| Bluesky (social-app) | ✅ | 3.9m | 10s | 40s | 3.1m | ⚡ 72s | [`8e8dc7561f82dbd92c86d2f8c7a1366a8bb85eba` @ `8e8dc75`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29011605148) | 2026-07-09 10:41:17 |
-| Mattermost Mobile | ✅ | 5.1m | 10s | 1.9m | 3.0m | ❗ 5s | [`ebf796a4da5f772bee157ab8223ab089f045ff58` @ `ebf796a`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29011605148) | 2026-07-09 10:47:02 |
+| XcodeBenchmark (anchor) | ✅ | 1.9m | 16s | - | 1.6m | ±0s | [`60d82d23e34fd63c4cae5d26d10cbdd88f0b0ee2` @ `60d82d2`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29086310672) | 2026-07-10 10:28:48 |
+| Wikipedia iOS | ✅ | 1.6m | 22s | 13s | 58s | ⚡ 2s | [`22f4e986c51db3629b175b299d0affbdb7648536` @ `22f4e98`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29086310672) | 2026-07-10 10:30:43 |
+| DuckDuckGo iOS | ✅ | 2.2m | 8s | 42s | 1.3m | ❗ 10s | [`40740302abbd758c80decc166ea37c324e5208c2` @ `4074030`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29086310672) | 2026-07-10 10:33:16 |
+| React Native (RN Tester) | ✅ | 2.9m | 26s | 48s | 1.6m | ❗ 5s | [`22ea81b5e37b0cf23be1d8fb32bb7f55e1fcf3d8` @ `22ea81b`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29086310672) | 2026-07-10 10:36:32 |
+| Bluesky (social-app) | ✅ | 3.8m | 12s | 39s | 2.9m | ⚡ 8s | [`8e8dc7561f82dbd92c86d2f8c7a1366a8bb85eba` @ `8e8dc75`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29086310672) | 2026-07-10 10:40:52 |
+| Mattermost Mobile | ✅ | 5.9m | 13s | 2.0m | 3.6m | ❗ 46s | [`ebf796a4da5f772bee157ab8223ab089f045ff58` @ `ebf796a`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29086310672) | 2026-07-10 10:47:23 |
 
 ### github - Apple M1 (Virtual) · Xcode 26.5
 
 | App | Status | Total | clone | deps | build | Δ vs prev | Built | Updated (UTC) |
 |-----|:------:|------:|------:|-----:|------:|-----------|-------|---------------|
-| XcodeBenchmark (anchor) | ✅ | 11.9m | 12s | - | 11.7m | ⚡ 67s | [`60d82d23e34fd63c4cae5d26d10cbdd88f0b0ee2` @ `60d82d2`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29011605148) | 2026-07-09 10:44:00 |
-| Wikipedia iOS | ✅ | 8.0m | 17s | 38s | 7.1m | ❗ 57s | [`22f4e986c51db3629b175b299d0affbdb7648536` @ `22f4e98`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29011605148) | 2026-07-09 10:52:23 |
-| DuckDuckGo iOS | ✅ | 9.4m | 6s | 1.6m | 7.8m | ⚡ 211s | [`40740302abbd758c80decc166ea37c324e5208c2` @ `4074030`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29011605148) | 2026-07-09 11:02:13 |
-| React Native (RN Tester) | ✅ | 25.3m | 20s | 2.6m | 22.5m | ❗ 607s | [`22ea81b5e37b0cf23be1d8fb32bb7f55e1fcf3d8` @ `22ea81b`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29011605148) | 2026-07-09 11:28:13 |
-| Bluesky (social-app) | ✅ | 29.4m | 8s | 4.3m | 25.0m | ⚡ 770s | [`8e8dc7561f82dbd92c86d2f8c7a1366a8bb85eba` @ `8e8dc75`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29011605148) | 2026-07-09 12:03:25 |
-| Mattermost Mobile | ✅ | 32.5m | 7s | 9.0m | 23.3m | ⚡ 391s | [`ebf796a4da5f772bee157ab8223ab089f045ff58` @ `ebf796a`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29011605148) | 2026-07-09 12:41:57 |
+| XcodeBenchmark (anchor) | ✅ | 12.4m | 11s | - | 12.3m | ❗ 34s | [`60d82d23e34fd63c4cae5d26d10cbdd88f0b0ee2` @ `60d82d2`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29086310672) | 2026-07-10 10:39:08 |
+| Wikipedia iOS | ✅ | 7.3m | 16s | 38s | 6.4m | ⚡ 42s | [`22f4e986c51db3629b175b299d0affbdb7648536` @ `22f4e98`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29086310672) | 2026-07-10 10:46:58 |
+| DuckDuckGo iOS | ✅ | 9.1m | 8s | 2.1m | 7.0m | ⚡ 18s | [`40740302abbd758c80decc166ea37c324e5208c2` @ `4074030`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29086310672) | 2026-07-10 10:56:28 |
+| React Native (RN Tester) | ✅ | 13.1m | 17s | 1.4m | 11.4m | ⚡ 734s | [`22ea81b5e37b0cf23be1d8fb32bb7f55e1fcf3d8` @ `22ea81b`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29086310672) | 2026-07-10 11:10:07 |
+| Bluesky (social-app) | ✅ | 35.6m | 8s | 4.3m | 31.2m | ❗ 368s | [`8e8dc7561f82dbd92c86d2f8c7a1366a8bb85eba` @ `8e8dc75`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29086310672) | 2026-07-10 11:46:09 |
+| Mattermost Mobile | ✅ | 25.7m | 8s | 6.4m | 19.2m | ⚡ 406s | [`ebf796a4da5f772bee157ab8223ab089f045ff58` @ `ebf796a`](https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/29086310672) | 2026-07-10 12:12:44 |
 <!-- LEADERBOARD:END -->
 
 
