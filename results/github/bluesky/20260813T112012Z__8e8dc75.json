@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "app": "bluesky",
+  "display_name": "Bluesky (social-app)",
+  "kind": "react-native-expo",
+  "status": "success",
+  "failed_phase": null,
+  "timestamp": "2026-08-13T11:20:12Z",
+  "repo": "https://github.com/bluesky-social/social-app",
+  "ref": "8e8dc7561f82dbd92c86d2f8c7a1366a8bb85eba",
+  "commit": "8e8dc7561f82dbd92c86d2f8c7a1366a8bb85eba",
+  "run_id": "31687702785",
+  "run_url": "https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/31687702785",
+  "runner": {
+    "label": "github",
+    "hostname": "sjc22-bt152-7fe9bc78-6569-4a7f-b8ff-b999aba5059d-2E37386E63D5.local",
+    "os": "26.5.2",
+    "arch": "arm64",
+    "model": "Apple M1 (Virtual)",
+    "cpu_cores": 3,
+    "mem_gb": 7.5,
+    "xcode": "Xcode 26.6 Build version 17F113"
+  },
+  "tooling": {
+    "node": "v24.18.0",
+    "pnpm": "11.21.0",
+    "yarn": "1.22.22",
+    "ruby": "ruby 3.4.10 (2026-06-30 revision 2b0b7728dc) +PRISM [arm64-darwin25]",
+    "cocoapods": "1.17.0"
+  },
+  "phases": [
+    {
+      "name": "clone",
+      "seconds": 7.8,
+      "status": "success"
+    },
+    {
+      "name": "deps",
+      "seconds": 243.9,
+      "status": "success"
+    },
+    {
+      "name": "build",
+      "seconds": 2040.3,
+      "status": "success"
+    }
+  ],
+  "total_seconds": 2292.0
+}
