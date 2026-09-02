@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "app": "mattermost",
+  "display_name": "Mattermost Mobile",
+  "kind": "react-native",
+  "status": "success",
+  "failed_phase": null,
+  "timestamp": "2026-09-02T11:39:43Z",
+  "repo": "https://github.com/mattermost/mattermost-mobile",
+  "ref": "ebf796a4da5f772bee157ab8223ab089f045ff58",
+  "commit": "ebf796a4da5f772bee157ab8223ab089f045ff58",
+  "run_id": "33614410067",
+  "run_url": "https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/33614410067",
+  "runner": {
+    "label": "github",
+    "hostname": "sat12-bq161-f1250b68-71cd-43ac-9456-c61dd5da3fb4-4A3BC05CC790.local",
+    "os": "26.5.2",
+    "arch": "arm64",
+    "model": "Apple M1 (Virtual)",
+    "cpu_cores": 3,
+    "mem_gb": 7.5,
+    "xcode": "Xcode 26.6 Build version 17F113"
+  },
+  "tooling": {
+    "node": "v24.18.0",
+    "pnpm": "11.25.0",
+    "yarn": "1.22.22",
+    "ruby": "ruby 3.4.10 (2026-06-30 revision 2b0b7728dc) +PRISM [arm64-darwin25]",
+    "cocoapods": "1.17.0"
+  },
+  "phases": [
+    {
+      "name": "clone",
+      "seconds": 7.9,
+      "status": "success"
+    },
+    {
+      "name": "deps",
+      "seconds": 511.2,
+      "status": "success"
+    },
+    {
+      "name": "build",
+      "seconds": 1733.1,
+      "status": "success"
+    }
+  ],
+  "total_seconds": 2252.2
+}
