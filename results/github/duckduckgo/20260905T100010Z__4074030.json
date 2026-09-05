@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "app": "duckduckgo",
+  "display_name": "DuckDuckGo iOS",
+  "kind": "ios-native",
+  "status": "success",
+  "failed_phase": null,
+  "timestamp": "2026-09-05T10:00:10Z",
+  "repo": "https://github.com/duckduckgo/iOS",
+  "ref": "40740302abbd758c80decc166ea37c324e5208c2",
+  "commit": "40740302abbd758c80decc166ea37c324e5208c2",
+  "run_id": "33957898514",
+  "run_url": "https://github.com/siddarthkay/bladerunner-benchmarks/actions/runs/33957898514",
+  "runner": {
+    "label": "github",
+    "hostname": "sjc20-cw712-304d730c-c3e8-4856-8a85-b500e0df0f4a-CE5EBF6209D5.local",
+    "os": "26.6.2",
+    "arch": "arm64",
+    "model": "Apple M1 (Virtual)",
+    "cpu_cores": 3,
+    "mem_gb": 7.5,
+    "xcode": "Xcode 26.6 Build version 17F113"
+  },
+  "tooling": {
+    "node": "v24.20.0",
+    "pnpm": "",
+    "yarn": "1.22.22",
+    "ruby": "ruby 3.4.10 (2026-06-30 revision 2b0b7728dc) +PRISM [arm64-darwin25]",
+    "cocoapods": "1.17.0"
+  },
+  "phases": [
+    {
+      "name": "clone",
+      "seconds": 4.9,
+      "status": "success"
+    },
+    {
+      "name": "deps",
+      "seconds": 110.4,
+      "status": "success"
+    },
+    {
+      "name": "build",
+      "seconds": 687.8,
+      "status": "success"
+    }
+  ],
+  "total_seconds": 803.1
+}
